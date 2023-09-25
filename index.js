@@ -1,6 +1,13 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
+
+const movies = [
+  { title: 'Jaws', year: 1975, rating: 8 },
+  { title: 'Avatar', year: 2009, rating: 7.8 },
+  { title: 'Brazil', year: 1985, rating: 8 },
+  { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 }
+];
 
 app.get('/test', (req, res) => {
     res.json({status: 200, message: "ok"});
@@ -26,6 +33,22 @@ app.get('/search', (req, res) => {
   } else {
     res.status(500).json({status: 500, error: true, message: 'you have to provide a search'});
   }
+});
+
+app.post('/movies/add', (req, res) => {
+  // TODO: Add code to handle movie creation
+});
+
+app.get('/movies/get', (req, res) => {
+  res.json({status: 200, data: movies});
+});
+
+app.put('/movies/edit', (req, res) => {
+  // TODO: Add code to handle movie update
+});
+
+app.delete('/movies/delete', (req, res) => {
+  // TODO: Add code to handle movie delete
 });
 
 app.listen(port, () => {
