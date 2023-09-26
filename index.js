@@ -77,7 +77,7 @@ app.get('/movies/read/id/:id', (req, res) => {
   }
 });
 
-app.get('/movies/add', (req, res) => {
+app.post('/movies/add', (req, res) => {
   const title = req.query.title;
   const year = req.query.year;
   const rating = req.query.year;
@@ -94,7 +94,7 @@ app.get('/movies/add', (req, res) => {
   res.json({status: 200, data: movies});
 });
 
-app.get('/movies/delete/:id', (req, res) => {
+app.delete('/movies/delete/:id', (req, res) => {
   const id = req.params.id;
   const movieIdx = movies.findIndex(movie => movie.id == id);
 
@@ -107,7 +107,7 @@ app.get('/movies/delete/:id', (req, res) => {
   }
 });
 
-app.get('/movies/update/:id', (req, res) => {
+app.put('/movies/update/:id', (req, res) => {
   const id = req.params.id;
   const movie = movies.find((movie => movie.id == id));
   if (movie) {
