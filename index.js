@@ -51,6 +51,21 @@ app.delete('/movies/delete', (req, res) => {
   // TODO: Add code to handle movie delete
 });
 
+app.get('/movies/read/by-date', (req, res) => {
+  const moviesByDate = movies.sort((a, b) => a.year - b.year);
+  res.json({status: 200, data: moviesByDate});
+});
+
+app.get('/movies/read/by-rating', (req, res) => {
+  const moviesByRating = movies.sort((a, b) => b.rating - a.rating);
+  res.json({status: 200, data: moviesByRating});
+});
+
+app.get('/movies/read/by-title', (req, res) => {
+  const moviesByTitle = movies.sort((a, b) => a.title.localeCompare(b.title));
+  res.json({status: 200, data: moviesByTitle});
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
