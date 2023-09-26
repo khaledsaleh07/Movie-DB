@@ -35,21 +35,21 @@ app.get('/search', (req, res) => {
   }
 });
 
-app.post('/movies/add', (req, res) => {
-  // TODO: Add code to handle movie creation
-});
+// app.post('/movies/add', (req, res) => {
+//   // TODO: Add code to handle movie creation
+// });
 
-app.get('/movies/get', (req, res) => {
-  res.json({status: 200, data: movies});
-});
+// app.get('/movies/get', (req, res) => {
+//   res.json({status: 200, data: movies});
+// });
 
-app.put('/movies/edit', (req, res) => {
-  // TODO: Add code to handle movie update
-});
+// app.put('/movies/edit', (req, res) => {
+//   // TODO: Add code to handle movie update
+// });
 
-app.delete('/movies/delete', (req, res) => {
-  // TODO: Add code to handle movie delete
-});
+// app.delete('/movies/delete', (req, res) => {
+//   // TODO: Add code to handle movie delete
+// });
 
 app.get('/movies/read/by-date', (req, res) => {
   const moviesByDate = movies.sort((a, b) => a.year - b.year);
@@ -105,6 +105,28 @@ app.get('/movies/delete/:id', (req, res) => {
   else {
     res.status(404).json({status: 404, error: true, message: `the movie ${id} does not exist`});
   }
+});
+
+app.get('/movies/update/:id', (req, res) => {
+  const id = req.params.id;
+  const movie = movies.find((movie => movie.id == id));
+  if (movie) {
+    const { title, rating, year } = req.query;
+    if (title) {
+      movie.title = title;
+    }
+    if (rating) {
+      movie.rating = rating;
+    }
+    if (year) {
+      movie.year = year;
+    }
+    res.json({ status: 200, data: movies });
+  }
+  else {
+    res.status(404).json({ status: 404, error: true, message: `the movie ${id} does not exist` });
+  }
+  
 });
 
 app.listen(port, () => {
