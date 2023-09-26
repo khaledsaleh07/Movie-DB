@@ -69,7 +69,6 @@ app.get('/movies/read/by-title', (req, res) => {
 app.get('/movies/read/id/:id', (req, res) => {
   const id = req.params.id;
   const movie = movies.find((movie) => movie.id == id);
-  console.log(movie);
   if(movie) {
     res.json({status: 200, data: movie});
   }
@@ -93,6 +92,19 @@ app.get('/movies/add', (req, res) => {
   movies.push(newMovie);
 
   res.json({status: 200, data: movies});
+});
+
+app.get('/movies/delete/:id', (req, res) => {
+  const id = req.params.id;
+  const movieIdx = movies.findIndex(movie => movie.id == id);
+
+  if (movieIdx !== -1) {
+    movies.splice(movieIdx, 1);
+    res.json({status: 200, data: movies});
+  }
+  else {
+    res.status(404).json({status: 404, error: true, message: `the movie ${id} does not exist`});
+  }
 });
 
 app.listen(port, () => {
